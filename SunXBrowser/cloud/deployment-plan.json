@@ -2,7 +2,7 @@
   "repository": "jphonda/SunXBrowser",
   "provider": "AWS",
   "region": "us-east-1",
-  "status": "awaiting user authorization for paid cloud resources",
+  "status": "paid cloud rental declined by user; no paid provisioning authorized",
   "price_checked_date": "2026-10-12",
   "proposed_first_build_budget_usd": 75,
   "windows": {
@@ -12,7 +12,12 @@
     "on_demand_usd_per_hour": 0.752,
     "proposed_max_instance_lifetime_hours": 12,
     "disk_gib": 500,
-    "runner_labels": ["self-hosted", "Windows", "X64", "sunx-build"]
+    "runner_labels": [
+      "self-hosted",
+      "Windows",
+      "X64",
+      "sunx-build"
+    ]
   },
   "macos": {
     "instance_type": "mac2-m2pro.metal",
@@ -23,7 +28,12 @@
     "minimum_host_allocation_hours": 24,
     "minimum_host_charge_usd": 37.44,
     "disk_gib": 500,
-    "runner_labels": ["self-hosted", "macOS", "ARM64", "sunx-build"]
+    "runner_labels": [
+      "self-hosted",
+      "macOS",
+      "ARM64",
+      "sunx-build"
+    ]
   },
   "cost_notes": [
     "Rates were queried using the AWS Price List API for US East (N. Virginia).",
@@ -38,5 +48,6 @@
     "Configure lifecycle cleanup for instances, volumes, public addresses and the Mac Dedicated Host.",
     "Install VS 2026/Windows SDK/NSIS and Xcode 27 on the appropriate runners.",
     "Register runners with short-lived GitHub registration tokens; never commit credentials."
-  ]
+  ],
+  "authorized_cloud_rental_budget_usd": 0
 }
