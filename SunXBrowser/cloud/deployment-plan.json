@@ -1,0 +1,42 @@
+{
+  "repository": "jphonda/SunXBrowser",
+  "provider": "AWS",
+  "region": "us-east-1",
+  "status": "awaiting user authorization for paid cloud resources",
+  "price_checked_date": "2026-10-12",
+  "proposed_first_build_budget_usd": 75,
+  "windows": {
+    "instance_type": "m6i.2xlarge",
+    "vcpus": 8,
+    "ram_gib": 32,
+    "on_demand_usd_per_hour": 0.752,
+    "proposed_max_instance_lifetime_hours": 12,
+    "disk_gib": 500,
+    "runner_labels": ["self-hosted", "Windows", "X64", "sunx-build"]
+  },
+  "macos": {
+    "instance_type": "mac2-m2pro.metal",
+    "host_type": "mac2-m2pro",
+    "cpu_cores": 12,
+    "ram_gib": 32,
+    "dedicated_host_usd_per_hour": 1.56,
+    "minimum_host_allocation_hours": 24,
+    "minimum_host_charge_usd": 37.44,
+    "disk_gib": 500,
+    "runner_labels": ["self-hosted", "macOS", "ARM64", "sunx-build"]
+  },
+  "cost_notes": [
+    "Rates were queried using the AWS Price List API for US East (N. Virginia).",
+    "EBS, public IPv4, transfer and taxes are additional to instance/host rates.",
+    "AWS budgets are alerts, not a hard spending cap; lifecycle cleanup must be installed before provisioning.",
+    "Stopping a Mac instance does not end Dedicated Host billing; the host must be released after its minimum allocation and scrub period.",
+    "No paid resources have been provisioned by this setup yet."
+  ],
+  "required_before_launch": [
+    "User authorization of the first-build budget and use of the connected AWS account.",
+    "Verify compatible Amazon-owned AMIs and available host capacity.",
+    "Configure lifecycle cleanup for instances, volumes, public addresses and the Mac Dedicated Host.",
+    "Install VS 2026/Windows SDK/NSIS and Xcode 27 on the appropriate runners.",
+    "Register runners with short-lived GitHub registration tokens; never commit credentials."
+  ]
+}
