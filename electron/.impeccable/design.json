@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T20:18:30.368889+00:00",
+  "title": "Design System: SunXBrowser desktop",
+  "extensions": {
+    "colorMeta": {
+      "strip": {
+        "role": "neutral",
+        "displayName": "Strip",
+        "tonalRamp": [
+          "oklch(15% 0.0280 263.43)",
+          "oklch(27% 0.0280 263.43)",
+          "oklch(39% 0.0280 263.43)",
+          "oklch(51% 0.0280 263.43)",
+          "oklch(63% 0.0280 263.43)",
+          "oklch(75% 0.0280 263.43)",
+          "oklch(87% 0.0280 263.43)",
+          "oklch(95% 0.0280 263.43)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(27% 0.0000 89.88)",
+          "oklch(39% 0.0000 89.88)",
+          "oklch(51% 0.0000 89.88)",
+          "oklch(63% 0.0000 89.88)",
+          "oklch(75% 0.0000 89.88)",
+          "oklch(87% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0058 271.18)",
+          "oklch(27% 0.0058 271.18)",
+          "oklch(39% 0.0058 271.18)",
+          "oklch(51% 0.0058 271.18)",
+          "oklch(63% 0.0058 271.18)",
+          "oklch(75% 0.0058 271.18)",
+          "oklch(87% 0.0058 271.18)",
+          "oklch(95% 0.0058 271.18)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0195 262.67)",
+          "oklch(27% 0.0195 262.67)",
+          "oklch(39% 0.0195 262.67)",
+          "oklch(51% 0.0195 262.67)",
+          "oklch(63% 0.0195 262.67)",
+          "oklch(75% 0.0195 262.67)",
+          "oklch(87% 0.0195 262.67)",
+          "oklch(95% 0.0195 262.67)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "hover": {
+        "role": "neutral",
+        "displayName": "Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0145 264.50)",
+          "oklch(27% 0.0145 264.50)",
+          "oklch(39% 0.0145 264.50)",
+          "oklch(51% 0.0145 264.50)",
+          "oklch(63% 0.0145 264.50)",
+          "oklch(75% 0.0145 264.50)",
+          "oklch(87% 0.0145 264.50)",
+          "oklch(95% 0.0145 264.50)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "address": {
+        "role": "neutral",
+        "displayName": "Address",
+        "tonalRamp": [
+          "oklch(15% 0.0120 259.82)",
+          "oklch(27% 0.0120 259.82)",
+          "oklch(39% 0.0120 259.82)",
+          "oklch(51% 0.0120 259.82)",
+          "oklch(63% 0.0120 259.82)",
+          "oklch(75% 0.0120 259.82)",
+          "oklch(87% 0.0120 259.82)",
+          "oklch(95% 0.0120 259.82)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Accent",
+        "tonalRamp": [
+          "oklch(15% 0.1822 260.01)",
+          "oklch(27% 0.1822 260.01)",
+          "oklch(39% 0.1822 260.01)",
+          "oklch(51% 0.1822 260.01)",
+          "oklch(63% 0.1822 260.01)",
+          "oklch(75% 0.1822 260.01)",
+          "oklch(87% 0.1822 260.01)",
+          "oklch(95% 0.1822 260.01)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "tonalRamp": [
+          "oklch(15% 0.0063 255.48)",
+          "oklch(27% 0.0063 255.48)",
+          "oklch(39% 0.0063 255.48)",
+          "oklch(51% 0.0063 255.48)",
+          "oklch(63% 0.0063 255.48)",
+          "oklch(75% 0.0063 255.48)",
+          "oklch(87% 0.0063 255.48)",
+          "oklch(95% 0.0063 255.48)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "wordmark": {
+        "role": "primary",
+        "displayName": "Wordmark",
+        "tonalRamp": [
+          "oklch(15% 0.1618 258.62)",
+          "oklch(27% 0.1618 258.62)",
+          "oklch(39% 0.1618 258.62)",
+          "oklch(51% 0.1618 258.62)",
+          "oklch(63% 0.1618 258.62)",
+          "oklch(75% 0.1618 258.62)",
+          "oklch(87% 0.1618 258.62)",
+          "oklch(95% 0.1618 258.62)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.1736 260.05)",
+          "oklch(27% 0.1736 260.05)",
+          "oklch(39% 0.1736 260.05)",
+          "oklch(51% 0.1736 260.05)",
+          "oklch(63% 0.1736 260.05)",
+          "oklch(75% 0.1736 260.05)",
+          "oklch(87% 0.1736 260.05)",
+          "oklch(95% 0.1736 260.05)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-strip": {
+        "role": "neutral",
+        "displayName": "Private Strip",
+        "tonalRamp": [
+          "oklch(15% 0.0102 260.70)",
+          "oklch(27% 0.0102 260.70)",
+          "oklch(39% 0.0102 260.70)",
+          "oklch(51% 0.0102 260.70)",
+          "oklch(63% 0.0102 260.70)",
+          "oklch(75% 0.0102 260.70)",
+          "oklch(87% 0.0102 260.70)",
+          "oklch(95% 0.0102 260.70)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-surface": {
+        "role": "neutral",
+        "displayName": "Private Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0115 264.40)",
+          "oklch(27% 0.0115 264.40)",
+          "oklch(39% 0.0115 264.40)",
+          "oklch(51% 0.0115 264.40)",
+          "oklch(63% 0.0115 264.40)",
+          "oklch(75% 0.0115 264.40)",
+          "oklch(87% 0.0115 264.40)",
+          "oklch(95% 0.0115 264.40)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-ink": {
+        "role": "neutral",
+        "displayName": "Private Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0099 267.36)",
+          "oklch(27% 0.0099 267.36)",
+          "oklch(39% 0.0099 267.36)",
+          "oklch(51% 0.0099 267.36)",
+          "oklch(63% 0.0099 267.36)",
+          "oklch(75% 0.0099 267.36)",
+          "oklch(87% 0.0099 267.36)",
+          "oklch(95% 0.0099 267.36)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-muted": {
+        "role": "neutral",
+        "displayName": "Private Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0155 260.73)",
+          "oklch(27% 0.0155 260.73)",
+          "oklch(39% 0.0155 260.73)",
+          "oklch(51% 0.0155 260.73)",
+          "oklch(63% 0.0155 260.73)",
+          "oklch(75% 0.0155 260.73)",
+          "oklch(87% 0.0155 260.73)",
+          "oklch(95% 0.0155 260.73)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-hover": {
+        "role": "neutral",
+        "displayName": "Private Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0196 266.06)",
+          "oklch(27% 0.0196 266.06)",
+          "oklch(39% 0.0196 266.06)",
+          "oklch(51% 0.0196 266.06)",
+          "oklch(63% 0.0196 266.06)",
+          "oklch(75% 0.0196 266.06)",
+          "oklch(87% 0.0196 266.06)",
+          "oklch(95% 0.0196 266.06)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-address": {
+        "role": "neutral",
+        "displayName": "Private Address",
+        "tonalRamp": [
+          "oklch(15% 0.0166 262.30)",
+          "oklch(27% 0.0166 262.30)",
+          "oklch(39% 0.0166 262.30)",
+          "oklch(51% 0.0166 262.30)",
+          "oklch(63% 0.0166 262.30)",
+          "oklch(75% 0.0166 262.30)",
+          "oklch(87% 0.0166 262.30)",
+          "oklch(95% 0.0166 262.30)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-accent": {
+        "role": "primary",
+        "displayName": "Private Accent",
+        "tonalRamp": [
+          "oklch(15% 0.0797 260.26)",
+          "oklch(27% 0.0797 260.26)",
+          "oklch(39% 0.0797 260.26)",
+          "oklch(51% 0.0797 260.26)",
+          "oklch(63% 0.0797 260.26)",
+          "oklch(75% 0.0797 260.26)",
+          "oklch(87% 0.0797 260.26)",
+          "oklch(95% 0.0797 260.26)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      },
+      "private-rule": {
+        "role": "neutral",
+        "displayName": "Private Rule",
+        "tonalRamp": [
+          "oklch(15% 0.0155 266.56)",
+          "oklch(27% 0.0155 266.56)",
+          "oklch(39% 0.0155 266.56)",
+          "oklch(51% 0.0155 266.56)",
+          "oklch(63% 0.0155 266.56)",
+          "oklch(75% 0.0155 266.56)",
+          "oklch(87% 0.0155 266.56)",
+          "oklch(95% 0.0155 266.56)"
+        ],
+        "rampPurpose": "Synthesized preview metadata; not additional implementation tokens."
+      }
+    },
+    "shadows": [
+      {
+        "name": "search",
+        "value": "0 1px 6px #2021243d",
+        "purpose": "Home search."
+      },
+      {
+        "name": "find",
+        "value": "0 3px 12px #20212426",
+        "purpose": "Floating find controls."
+      }
+    ],
+    "motion": [
+      {
+        "name": "tab-background",
+        "value": "background 120ms ease-out",
+        "purpose": "Tab hover state."
+      },
+      {
+        "name": "loading",
+        "value": "spin 1s linear infinite",
+        "purpose": "Loading status; disabled with reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "950px"
+      }
+    ],
+    "accessibility": {
+      "focus": "2px accent outline with 2px offset; home search uses #2867cf with 3px offset; tabs use #2867cf with -3px offset.",
+      "reducedMotion": "All transitions and animations disabled."
+    },
+    "viewportScope": {
+      "verifiedWidths": [
+        1280,
+        800
+      ],
+      "minimumWindow": [
+        760,
+        540
+      ],
+      "defaultWindow": [
+        1280,
+        820
+      ]
+    },
+    "platform": "macOS uses native traffic lights and a 78px reserved tab-strip region; other platforms use custom frameless-window controls."
+  },
+  "components": [
+    {
+      "name": "Icon button",
+      "kind": "button",
+      "description": "Icon button from the implemented desktop shell.",
+      "html": "<button class=\"ds-icon\" aria-label=\"แท็บใหม่\">+</button>",
+      "css": ".ds-icon{font-family:\"Segoe UI\",Arial,\"Noto Sans Thai\",sans-serif;background:transparent;color:var(--ink,#202124);border:0;width:34px;height:34px;border-radius:50%;padding:7px;cursor:pointer}.ds-icon:hover{background:var(--hover,#e8edf7)}.ds-icon:focus-visible{outline:2px solid var(--accent,#1a5ecb);outline-offset:2px;}",
+      "refersTo": "icon-button"
+    },
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "description": "Primary action from the implemented desktop shell.",
+      "html": "<button class=\"ds-primary\">ลองอีกครั้ง</button>",
+      "css": ".ds-primary{font-family:\"Segoe UI\",Arial,\"Noto Sans Thai\",sans-serif;background:var(--accent,#1a5ecb);color:white;border:0;border-radius:5px;padding:10px 20px;cursor:pointer}.ds-primary:focus-visible{outline:2px solid var(--accent,#1a5ecb);outline-offset:2px;}",
+      "refersTo": "primary"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "description": "Text action from the implemented desktop shell.",
+      "html": "<button class=\"ds-text\">นำออก</button>",
+      "css": ".ds-text{font-family:\"Segoe UI\",Arial,\"Noto Sans Thai\",sans-serif;border:0;background:transparent;color:var(--accent,#1a5ecb);padding:8px 10px;border-radius:6px;cursor:pointer}.ds-text:hover{background:var(--hover,#e8edf7)}.ds-text:focus-visible{outline:2px solid var(--accent,#1a5ecb);outline-offset:2px;}"
+    },
+    {
+      "name": "Home search",
+      "kind": "input",
+      "description": "Home search from the implemented desktop shell.",
+      "html": "<form class=\"ds-search\"><input aria-label=\"ค้นหาเว็บไซต์\" placeholder=\"ค้นหาด้วย Google หรือป้อน URL\"></form>",
+      "css": ".ds-search{width:min(570px,90%);height:48px;border-radius:25px;display:flex;align-items:center;padding:0 18px;box-shadow:0 1px 6px #2021243d;background:var(--surface,#fff)}.ds-search input{font-family:\"Segoe UI\",Arial,\"Noto Sans Thai\",sans-serif;border:0;outline:none;background:transparent;width:100%;color:var(--ink,#202124);font-size:15px}.ds-search input::placeholder{color:var(--muted,#515762)}.ds-search:focus-within{outline:2px solid #2867cf;outline-offset:3px}",
+      "refersTo": "home-search"
+    },
+    {
+      "name": "Browser tab",
+      "kind": "nav",
+      "description": "Browser tab from the implemented desktop shell.",
+      "html": "<div class=\"ds-strip\"><div class=\"ds-tab\" role=\"tab\" aria-selected=\"true\" tabindex=\"0\">แท็บใหม่</div></div>",
+      "css": ".ds-strip{background:var(--strip,#dce6f9);padding:5px 8px 0}.ds-tab{font-family:\"Segoe UI\",Arial,\"Noto Sans Thai\",sans-serif;width:222px;padding:10px 12px;border-radius:11px 11px 0 0;background:var(--surface,#fff);color:var(--ink,#202124);font-size:12px;cursor:pointer;transition:background 120ms ease-out}.ds-tab:focus{outline:2px solid #2867cf;outline-offset:-3px}@media(prefers-reduced-motion:reduce){.ds-tab{transition:none}}",
+      "refersTo": "tab"
+    }
+  ],
+  "narrative": {
+    "northStar": "User-pinned Chrome form",
+    "overview": "User-pinned Chrome form provides a familiar desktop browsing shell. Pale blue tabs, white surfaces, compact outline controls and pill-shaped search fields keep attention on the address and web content. SunXBrowser uses its existing blue S identity and system typography with Thai fallback.",
+    "keyCharacteristics": [
+      "Compact, fixed browser chrome.",
+      "Blue interaction accents and pale neutral surfaces.",
+      "Restrained shadows on search and floating find controls."
+    ],
+    "rules": [],
+    "dos": [
+      "Do preserve visible keyboard focus on tabs, buttons and search fields.",
+      "Do preserve the fixed chrome height when positioning web content.",
+      "Do use the private palette consistently throughout private windows."
+    ],
+    "donts": [
+      "Don’t introduce decorative cards or large marketing sections into the browser shell.",
+      "Don’t hide native macOS window controls behind custom controls.",
+      "Don’t add motion that ignores reduced-motion preferences."
+    ]
+  }
+}
