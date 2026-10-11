@@ -1,0 +1,9 @@
+{
+  "repository": "https://chromium.googlesource.com/chromium/src.git",
+  "revision": "4afca57b57f531a92ffc15af0ffb5cf0038fb273",
+  "depot_tools_revision": "a03dfbf7f2d1cefa2795d81d59ca4f16c8616a8f",
+  "brand": "SunXBrowser",
+  "dns_mode": "secure",
+  "dns_template": "https://1.1.1.1/dns-query",
+  "status": "source overlay; compilation and runtime verification pending"
+}
