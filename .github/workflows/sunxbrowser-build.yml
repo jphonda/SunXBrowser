@@ -1,94 +1,70 @@
-name: SunXBrowser cloud installers
-
+name: Build SunXBrowser installers
 on:
   workflow_dispatch:
-    inputs:
-      platform:
-        description: Platforms to build
-        type: choice
-        options: [both, windows, macos]
-        default: both
-      mac_arch:
-        description: Native architecture of the Mac cloud runner
-        type: choice
-        options: [ARM64, X64]
-        default: ARM64
-
 permissions:
   contents: read
-
-concurrency:
-  group: sunxbrowser-cloud-installers
-  cancel-in-progress: false
-
 jobs:
-  windows:
-    if: inputs.platform == 'both' || inputs.platform == 'windows'
-    runs-on: [self-hosted, Windows, X64, sunx-build]
-    timeout-minutes: 720
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+            arch: x64
+          - os: macos-15
+            platform: mac
+            arch: arm64
+          - os: macos-15-intel
+            platform: mac
+            arch: x64
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: electron
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Build, smoke test, and package Windows installer
-        shell: pwsh
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: electron/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run smoke
+      - run: npm run dist -- --${{ matrix.platform }} --${{ matrix.arch }}
         env:
-          SUNX_BUILD_ROOT: ${{ vars.SUNX_WINDOWS_BUILD_ROOT }}
-          PYTHONUTF8: '1'
-        run: |
-          $buildRoot = $env:SUNX_BUILD_ROOT
-          if (-not $buildRoot) { $buildRoot = Join-Path $env:RUNNER_TEMP 'sunx-builds' }
-          python SunXBrowser/scripts/ci_build.py --work-root "$buildRoot" --dist SunXBrowser/dist/windows --cpu x64
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Upload Windows installer and diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - run: npm run checksums
+      - uses: actions/upload-artifact@v4
         with:
-          name: SunXBrowser-windows-x64-${{ github.run_id }}
-          path: SunXBrowser/dist/windows/
-          if-no-files-found: warn
-          retention-days: 14
-          compression-level: 0
-      - name: Remove this run's large cloud checkout
+          name: SunXBrowser-${{ matrix.platform }}-${{ matrix.arch }}
+          path: |
+            electron/dist/*.exe
+            electron/dist/*.dmg
+            electron/dist/*.zip
+            electron/dist/SHA256*.txt
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
         if: always()
-        shell: pwsh
-        run: |
-          python SunXBrowser/scripts/ci_build.py --cleanup --dist SunXBrowser/dist/windows
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-  macos:
-    if: inputs.platform == 'both' || inputs.platform == 'macos'
-    runs-on: [self-hosted, macOS, '${{ inputs.mac_arch }}', sunx-build]
-    timeout-minutes: 720
+        with:
+          name: test-${{ matrix.platform }}-${{ matrix.arch }}
+          path: electron/test-output/
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
-          persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Build, smoke test, and package Mac disk image
+          pattern: SunXBrowser-*
+          path: installers
+          merge-multiple: true
+      - name: Publish downloadable installers
         env:
-          SUNX_BUILD_ROOT: ${{ vars.SUNX_MACOS_BUILD_ROOT }}
-          SUNX_MAC_ARCH: ${{ inputs.mac_arch }}
-          PYTHONUTF8: '1'
+          GH_TOKEN: ${{ github.token }}
         run: |
-          build_root="${SUNX_BUILD_ROOT:-$RUNNER_TEMP/sunx-builds}"
-          cpu=arm64
-          if [ "$SUNX_MAC_ARCH" = "X64" ]; then cpu=x64; fi
-          python SunXBrowser/scripts/ci_build.py --work-root "$build_root" --dist SunXBrowser/dist/macos --cpu "$cpu"
-      - name: Upload Mac disk image and diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: SunXBrowser-macos-${{ inputs.mac_arch }}-${{ github.run_id }}
-          path: SunXBrowser/dist/macos/
-          if-no-files-found: warn
-          retention-days: 14
-          compression-level: 0
-      - name: Remove this run's large cloud checkout
-        if: always()
-        run: python SunXBrowser/scripts/ci_build.py --cleanup --dist SunXBrowser/dist/macos
+          TAG="v0.1.0-build.${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" installers/* --title "SunXBrowser 0.1.0 build ${GITHUB_RUN_NUMBER}" --prerelease --notes "Windows x64 and macOS Apple Silicon / Intel installers. Cloudflare strict Secure DNS enabled automatically. Initial unsigned preview; Windows SmartScreen/macOS Gatekeeper may show a warning. No Chrome extensions or Google account sync."

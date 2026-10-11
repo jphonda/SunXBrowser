@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>SunXBrowser</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7M7 12h14"/></symbol>
+<symbol id="i-forward" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7M3 12h14"/></symbol>
+<symbol id="i-reload" viewBox="0 0 24 24"><path d="M20 7v5h-5M20 12a8 8 0 1 0-2 6M20 7l-3-3"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="i-private" viewBox="0 0 24 24"><path d="m7 3-2 8h14l-2-8ZM3 11h18M10 17h4"/><circle cx="6.5" cy="17.5" r="3.5"/><circle cx="17.5" cy="17.5" r="3.5"/></symbol>
+<symbol id="i-min" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-max" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1"/></symbol>
+</defs></svg>
+<header class="chrome">
+  <div class="tabstrip"><div class="mac-space"></div><div id="tabs" role="tablist" aria-label="แท็บที่เปิดอยู่"></div><button class="icon-button new-tab" data-action="new-tab" title="แท็บใหม่ (Ctrl/Cmd+T)" aria-label="แท็บใหม่"><svg><use href="#i-plus"/></svg></button><div class="drag-space"></div><div class="window-controls"><button data-action="minimize" aria-label="ย่อหน้าต่าง"><svg><use href="#i-min"/></svg></button><button data-action="maximize" aria-label="ขยายหน้าต่าง"><svg><use href="#i-max"/></svg></button><button data-action="close-window" aria-label="ปิดหน้าต่าง"><svg><use href="#i-close"/></svg></button></div></div>
+  <div class="toolbar">
+    <button id="back" class="icon-button" data-action="back" title="ย้อนกลับ" aria-label="ย้อนกลับ"><svg><use href="#i-back"/></svg></button>
+    <button id="forward" class="icon-button" data-action="forward" title="ถัดไป" aria-label="ถัดไป"><svg><use href="#i-forward"/></svg></button>
+    <button id="reload" class="icon-button" data-action="reload" title="โหลดใหม่" aria-label="โหลดใหม่"><svg><use href="#i-reload"/></svg></button>
+    <form id="address-form" class="omnibox"><span class="site-icon"><svg><use href="#i-sliders"/></svg></span><input id="address" aria-label="ค้นหาหรือป้อนที่อยู่เว็บไซต์" placeholder="ค้นหาด้วย Google หรือป้อน URL" autocomplete="off" spellcheck="false"><button id="star" type="button" class="icon-button" data-action="bookmark" title="บันทึกบุ๊กมาร์ก" aria-label="บันทึกบุ๊กมาร์ก"><svg><use href="#i-star"/></svg></button></form>
+    <span id="mode" class="mode"><img src="../assets/icon.png" alt=""><span>SunXBrowser</span></span>
+    <button class="icon-button" data-action="menu" title="ปรับแต่งและควบคุม SunXBrowser" aria-label="เมนู SunXBrowser"><svg><use href="#i-menu"/></svg></button>
+  </div>
+  <nav id="bookmarks-bar" aria-label="แถบบุ๊กมาร์ก"></nav>
+</header>
+<main id="page"></main>
+<form id="find-bar" hidden><input id="find-text" aria-label="ค้นหาในหน้าเว็บ" placeholder="ค้นหาในหน้าเว็บ"><button type="submit">ค้นหา</button><button type="button" id="close-find" aria-label="ปิดการค้นหา"><svg><use href="#i-close"/></svg></button></form>
+<script src="ui.js"></script>
+</body></html>

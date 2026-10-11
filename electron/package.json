@@ -1,0 +1,31 @@
+{
+  "name": "sunxbrowser",
+  "version": "0.1.0",
+  "description": "SunXBrowser desktop browser with automatic Cloudflare Secure DNS",
+  "author": "jphonda",
+  "license": "MIT",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "smoke": "node scripts/smoke.cjs",
+    "dist": "electron-builder --publish never",
+    "checksums": "node scripts/checksums.cjs"
+  },
+  "devDependencies": {
+    "electron": "44.7.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "app.sunxbrowser.browser",
+    "productName": "SunXBrowser",
+    "asar": true,
+    "directories": { "output": "dist", "buildResources": "assets" },
+    "files": ["main.cjs", "core.cjs", "preload.cjs", "renderer/**", "assets/icon.png", "package.json"],
+    "artifactName": "SunXBrowser-${version}-${os}-${arch}.${ext}",
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "assets/icon.ico" },
+    "nsis": { "oneClick": false, "perMachine": false, "allowElevation": false, "allowToChangeInstallationDirectory": true, "deleteAppDataOnUninstall": false, "createDesktopShortcut": true, "createStartMenuShortcut": true },
+    "mac": { "target": ["dmg", "zip"], "icon": "assets/icon.icns", "category": "public.app-category.productivity", "identity": null },
+    "dmg": { "title": "SunXBrowser" }
+  }
+}

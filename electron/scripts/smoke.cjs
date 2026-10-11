@@ -1,0 +1,3 @@
+const {spawn}=require('node:child_process');const fs=require('node:fs');const os=require('node:os');const path=require('node:path');
+const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'sunx-test-'));const env={...process.env,SUNX_TEST_DATA:tmp,SUNX_TEST_OUTPUT:path.resolve('test-output')};delete env.ELECTRON_RUN_AS_NODE;
+const child=spawn(require('electron'),['.','--smoke-test'],{stdio:'inherit',env});const timer=setTimeout(()=>{child.kill();process.exitCode=1},120000);child.on('exit',code=>{clearTimeout(timer);fs.rmSync(tmp,{recursive:true,force:true});process.exitCode=code||0});

@@ -1,0 +1,2 @@
+# SunXBrowser desktop
+Thai-speaking PC and Mac users want a familiar Chrome-shaped browser using their own SunXBrowser name and S logo, automatic Cloudflare Secure DNS, and free cloud-built installers. Primary activity is entering a URL/search and moving among tabs. Public GitHub releases serve Windows x64, Apple Silicon and Intel Macs. No paid cloud, full Chrome fork, sync or extensions are promised.
