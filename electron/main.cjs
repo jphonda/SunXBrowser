@@ -16,13 +16,13 @@ app.setAppUserModelId('app.sunxbrowser.browser');
 app.enableSandbox();
 if (process.env.SUNX_TEST_DATA) app.setPath('userData', process.env.SUNX_TEST_DATA);
 const storeFile = () => path.join(app.getPath('userData'), 'browser-data.json');
-function save() {
+function flushSave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try { fs.mkdirSync(app.getPath('userData'), { recursive: true }); fs.writeFileSync(storeFile() + '.tmp', JSON.stringify(store)); fs.renameSync(storeFile() + '.tmp', storeFile()); }
-    catch (error) { console.error('Could not save browser data:', error.message); }
-  }, 150);
+  try { fs.mkdirSync(app.getPath('userData'), { recursive: true }); fs.writeFileSync(storeFile() + '.tmp', JSON.stringify(store)); fs.renameSync(storeFile() + '.tmp', storeFile()); }
+  catch (error) { console.error('Could not save browser data:', error.message); }
 }
+function save() { clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 150); }
+app.on('before-quit', flushSave);
 function stateOf(ctx) {
   const active = ctx.tabs.find(t => t.id === ctx.active);
   return { platform: process.platform, private: ctx.private, tabs: ctx.tabs.map(({ id, title, url, loading, error }) => ({ id, title, url, loading, error })), active: ctx.active,
@@ -98,7 +98,7 @@ function navigate(ctx, tab, input) {
   if (!url) { tab.error = 'รองรับเฉพาะที่อยู่ HTTP และ HTTPS'; layout(ctx); update(ctx); return; }
   tab.error = ''; tab.url = url;
   const page = internalPage(url);
-  if (page) { if (tab.view) tab.view.webContents.stop(); tab.title = { newtab: 'แท็บใหม่', history: 'ประวัติ', bookmarks: 'บุ๊กมาร์ก', downloads: 'ดาวน์โหลด', settings: 'การตั้งค่า' }[page]; tab.loading = false; }
+  if (page) { if (tab.view) { ctx.win.contentView.removeChildView(tab.view); tab.view.webContents.close(); tab.view = null; } tab.title = { newtab: 'แท็บใหม่', history: 'ประวัติ', bookmarks: 'บุ๊กมาร์ก', downloads: 'ดาวน์โหลด', settings: 'การตั้งค่า' }[page]; tab.loading = false; }
   else {
     const view = tab.view || createView(ctx, tab);
     tab.title = new URL(url).hostname;

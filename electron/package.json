@@ -20,12 +20,51 @@
     "appId": "app.sunxbrowser.browser",
     "productName": "SunXBrowser",
     "asar": true,
-    "directories": { "output": "dist", "buildResources": "assets" },
-    "files": ["main.cjs", "core.cjs", "preload.cjs", "renderer/**", "assets/icon.png", "package.json"],
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.cjs",
+      "core.cjs",
+      "preload.cjs",
+      "renderer/**",
+      "assets/icon.png",
+      "package.json",
+      "scripts/smoke-runtime.cjs"
+    ],
     "artifactName": "SunXBrowser-${version}-${os}-${arch}.${ext}",
-    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "assets/icon.ico" },
-    "nsis": { "oneClick": false, "perMachine": false, "allowElevation": false, "allowToChangeInstallationDirectory": true, "deleteAppDataOnUninstall": false, "createDesktopShortcut": true, "createStartMenuShortcut": true },
-    "mac": { "target": ["dmg", "zip"], "icon": "assets/icon.icns", "category": "public.app-category.productivity", "identity": null },
-    "dmg": { "title": "SunXBrowser" }
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "identity": null
+    },
+    "dmg": {
+      "title": "SunXBrowser"
+    }
   }
 }

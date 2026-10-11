@@ -23,4 +23,4 @@ npm start
 
 The UI resembles Chrome, but this is an independent Electron browser: Chrome extensions, Google account sync and full Chrome feature parity are not included. It uses the project's existing S logo.
 
-The older full Chromium source overlay in `scripts/`, `patches/`, `installer/`, `cloud/` and `upstream.json` is retained as legacy reference only. Current installers are built from `electron/` and do not invoke paid self-hosted runners.
+The older full Chromium source overlay under `SunXBrowser/` is retained as legacy reference only. Current installers are built from `electron/` and do not invoke paid self-hosted runners.
