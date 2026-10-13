@@ -1,0 +1,129 @@
+name: Build Chromium SunXBrowser Windows free
+on:
+  workflow_dispatch:
+    inputs:
+      resume_run_id:
+        description: Previous checkpoint run ID (leave empty for first build)
+        type: string
+        default: ''
+      part:
+        description: Continuation part (maximum three automatic parts)
+        type: string
+        default: '1'
+permissions:
+  contents: read
+concurrency:
+  group: sunx-chromium-windows
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 355
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate inputs and actual free disk
+        shell: pwsh
+        env:
+          SUNX_PART: ${{ inputs.part }}
+          SUNX_RESUME: ${{ inputs.resume_run_id }}
+        run: |
+          if ($env:SUNX_PART -notmatch '^[1-3]$') { throw 'Part must be 1, 2 or 3' }
+          if ($env:SUNX_RESUME -and $env:SUNX_RESUME -notmatch '^\d+$') { throw 'Invalid checkpoint run ID' }
+          $free = (Get-Volume -DriveLetter D).SizeRemaining / 1GB
+          Write-Output "D: free disk $free GiB"
+          if ($free -lt 100) { throw 'Not enough disk on this standard free runner. No paid fallback.' }
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products '*' -version '[18.0,19.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATLMFC -property installationPath
+          if ($LASTEXITCODE -ne 0) { throw 'Visual Studio tools missing' }
+      - name: Install free NSIS packaging tools
+        shell: pwsh
+        run: |
+          choco install nsis --yes --no-progress
+          if ($LASTEXITCODE -ne 0) { throw 'NSIS installation failed' }
+          'C:\Program Files (x86)\NSIS' >> $env:GITHUB_PATH
+          'C:\Program Files\7-Zip' >> $env:GITHUB_PATH
+      - uses: actions/download-artifact@v4
+        if: inputs.resume_run_id != ''
+        with:
+          name: chromium-windows-checkpoint
+          path: checkpoint
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+      - name: Build and test actual Windows Chromium
+        id: build
+        shell: pwsh
+        env:
+          SUNX_DIST: ${{ github.workspace }}\dist-chromium-windows
+          SUNX_RESUME: ${{ inputs.resume_run_id }}
+        run: |
+          $argsList = @('SunXBrowser/scripts/windows_free_build.py', '--compile-seconds', '14400')
+          if ($env:SUNX_RESUME) { $argsList += @('--resume', "$env:GITHUB_WORKSPACE\checkpoint") }
+          python @argsList
+          if ($LASTEXITCODE -ne 0) { throw 'Chromium build failed; inspect diagnostics artifact' }
+      - uses: actions/upload-artifact@v4
+        if: steps.build.outputs.checkpoint == 'true'
+        with:
+          name: chromium-windows-checkpoint
+          path: dist-chromium-windows/out.7z*
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: steps.build.outputs.checkpoint == 'false'
+        with:
+          name: SunXBrowser-Chromium-Windows-x64
+          path: |
+            dist-chromium-windows/*.exe
+            dist-chromium-windows/*.sha256
+            dist-chromium-windows/build-info.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chromium-windows-diagnostics
+          path: |
+            dist-chromium-windows/*.log
+            dist-chromium-windows/state.json
+          retention-days: 7
+      - name: Continue from checkpoint within free runner limits
+        if: steps.build.outputs.checkpoint == 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUNX_PART: ${{ inputs.part }}
+        run: |
+          if ([int]$env:SUNX_PART -ge 3) { throw 'Three-part build limit reached; checkpoint retained for review' }
+          $next = [int]$env:SUNX_PART + 1
+          gh workflow run chromium-windows.yml --ref main -f "resume_run_id=$env:GITHUB_RUN_ID" -f "part=$next"
+  release:
+    needs: build
+    if: needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Determine whether installer was produced
+        id: ready
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "SunXBrowser-Chromium-Windows-x64")] | length')
+          if [ "$COUNT" -gt 0 ]; then echo "yes=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/download-artifact@v4
+        if: steps.ready.outputs.yes == 'true'
+        with:
+          name: SunXBrowser-Chromium-Windows-x64
+          path: installers
+      - name: Publish verified Windows installer
+        if: steps.ready.outputs.yes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "chromium-windows-$GITHUB_RUN_ID" installers/* --target "$GITHUB_SHA" --title "SunXBrowser Chromium 157 Windows x64" --prerelease --notes "Full Chromium with SunXBrowser S logo and automatic Cloudflare 1.1.1.1 Secure DNS. Per-user NSIS installer. Built on standard free GitHub runners; browser startup and installed payload smoke tests passed. Unsigned experimental installer; SmartScreen may warn. No paid cloud resources."
