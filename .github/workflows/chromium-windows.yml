@@ -38,8 +38,9 @@ jobs:
           $free = (Get-Volume -DriveLetter D).SizeRemaining / 1GB
           Write-Output "D: free disk $free GiB"
           if ($free -lt 100) { throw 'Not enough disk on this standard free runner. No paid fallback.' }
-          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products '*' -version '[18.0,19.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATLMFC -property installationPath
-          if ($LASTEXITCODE -ne 0) { throw 'Visual Studio tools missing' }
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products '*' -version '[18.0,19.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.ATLMFC -property installationPath
+          if ($LASTEXITCODE -ne 0 -or -not $vs) { throw 'Visual Studio tools missing' }
+          Write-Output $vs
       - name: Install free NSIS packaging tools
         shell: pwsh
         run: |
@@ -69,7 +70,9 @@ jobs:
         if: steps.build.outputs.checkpoint == 'true'
         with:
           name: chromium-windows-checkpoint
-          path: dist-chromium-windows/out.7z*
+          path: |
+            dist-chromium-windows/out.7z*
+            dist-chromium-windows/state.json
           compression-level: 0
           retention-days: 1
           if-no-files-found: error

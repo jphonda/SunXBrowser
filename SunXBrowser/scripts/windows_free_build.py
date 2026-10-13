@@ -67,6 +67,8 @@ def main():
  phase='sync Windows dependencies';state('running');command(['gclient','sync','-D','--no-history','--shallow','--jobs','4'],CHECKOUT,timeout=5400)
  phase='apply branding and Secure DNS';state('running');module('build').apply_overlay(SRC)
  if args.resume:
+  checkpoint=json.loads((args.resume/'state.json').read_text())
+  if checkpoint.get('revision')!=CONFIG['revision'] or checkpoint.get('state')!='checkpoint':raise RuntimeError('Checkpoint does not match this pinned Chromium build')
   archives=sorted(args.resume.glob('out.7z*'))
   if not archives:raise RuntimeError('Resume checkpoint archive missing')
   phase='restore compile checkpoint';state('running');command(['7z','x',archives[0],'-y',f'-o{SRC}'],timeout=2400)
