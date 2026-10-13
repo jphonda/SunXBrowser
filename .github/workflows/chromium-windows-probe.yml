@@ -1,0 +1,18 @@
+name: Chromium Windows free runner preflight
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 10
+    steps:
+      - name: Measure actual disk and Visual Studio
+        shell: pwsh
+        run: |
+          Get-Volume | Select-Object DriveLetter, FileSystemLabel, @{n='TotalGiB';e={[math]::Round($_.Size/1GB,1)}}, @{n='FreeGiB';e={[math]::Round($_.SizeRemaining/1GB,1)}} | Format-Table
+          Get-CimInstance Win32_ComputerSystem | Select-Object NumberOfLogicalProcessors, @{n='RAMGiB';e={[math]::Round($_.TotalPhysicalMemory/1GB,1)}}
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products '*' -format json
+          Write-Output "Tool cache: $env:RUNNER_TOOL_CACHE"
+          Write-Output "Workspace: $env:GITHUB_WORKSPACE"
