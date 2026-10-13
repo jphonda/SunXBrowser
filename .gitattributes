@@ -1,0 +1,2 @@
+# Patch context must match the upstream LF source on Windows as well as macOS.
+*.patch text eol=lf

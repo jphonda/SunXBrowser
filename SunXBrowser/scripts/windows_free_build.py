@@ -65,7 +65,12 @@ def main():
  SRC.mkdir();command(['git','init'],SRC);command(['git','remote','add','origin',CONFIG['repository']],SRC)
  command(['git','fetch','--depth=1','--no-tags','origin',CONFIG['revision']],SRC,timeout=1800);command(['git','checkout','--detach',CONFIG['revision']],SRC)
  phase='sync Windows dependencies';state('running');command(['gclient','sync','-D','--no-history','--shallow','--jobs','4'],CHECKOUT,timeout=5400)
- phase='apply branding and Secure DNS';state('running');module('build').apply_overlay(SRC)
+ phase='apply branding and Secure DNS';state('running')
+ actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=SRC,env=ENV,text=True).strip()
+ if actual!=CONFIG['revision']:raise RuntimeError('Chromium checkout changed from pinned revision')
+ patch=ROOT/'patches/sunxbrowser.patch'
+ patch.write_bytes(patch.read_bytes().replace(b'\r\n',b'\n'))
+ module('build').apply_overlay(SRC)
  if args.resume:
   checkpoint=json.loads((args.resume/'state.json').read_text())
   if checkpoint.get('revision')!=CONFIG['revision'] or checkpoint.get('state')!='checkpoint':raise RuntimeError('Checkpoint does not match this pinned Chromium build')
